@@ -30,22 +30,32 @@ Aplicação full-stack desenvolvida em Ruby on Rails como parte do desafio técn
 
 ### Passos:
 
-```bash
 # Clonar repositório
+```bash
 git clone https://github.com/SEU_USUARIO/todo-v360.git
+```
 
 # Entrar na pasta
+```bash
 cd todo-v360
+```
 
 # Instalar dependências
+```bash
 bundle install
+```
 
 # Criar banco
+```bash
 rails db:create
+```
 
 # Rodar servidor
+```bash
 rails server
+```
 
 # Acessar em:
+```bash
 http://localhost:3000
 ```
