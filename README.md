@@ -1,24 +1,51 @@
-# README
+# To Do List - V360
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+Aplicação full-stack desenvolvida em Ruby on Rails como parte do desafio técnico da V360.
 
-Things you may want to cover:
+---
 
-* Ruby version
+## Tecnologias utilizadas
 
-* System dependencies
+- Ruby on Rails
+- SQLite (desenvolvimento)
+- PostgreSQL (produção - planejado)
+- Hotwire (Turbo + Stimulus) *(planejado)*
 
-* Configuration
+---
 
-* Database creation
+## Funcionalidades (MVP)
 
-* Database initialization
+- Criar listas de tarefas
+- Adicionar itens em cada lista
+- Marcar tarefas como concluídas
 
-* How to run the test suite
+---
 
-* Services (job queues, cache servers, search engines, etc.)
+## Como rodar o projeto
 
-* Deployment instructions
+### Pré-requisitos:
+- Ruby instalado
+- Rails instalado
+- Git instalado
 
-* ...
+### Passos:
+
+```bash
+# Clonar repositório
+git clone https://github.com/SEU_USUARIO/todo-v360.git
+
+# Entrar na pasta
+cd todo-v360
+
+# Instalar dependências
+bundle install
+
+# Criar banco
+rails db:create
+
+# Rodar servidor
+rails server
+
+# Acessar em:
+http://localhost:3000
+```
