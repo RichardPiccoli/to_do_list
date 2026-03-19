@@ -1,0 +1,26 @@
+<li id="<%= dom_id(item) %>">
+
+  <!-- Checkbox para marcar como concluído -->
+  <%= form_with(model: [list, item], method: :patch) do |form| %>
+    <%= form.check_box :done, checked: item.done,
+          onchange: "this.form.submit()" %>
+  <% end %>
+
+  <!-- Título -->
+  <strong>
+    <%= item.title %>
+  </strong>
+
+  <!-- Status -->
+  <% if item.done %>
+    <span style="color: green;">(Concluído)</span>
+  <% else %>
+    <span style="color: red;">(Pendente)</span>
+  <% end %>
+
+  <!-- Botão excluir -->
+  <%= link_to "Excluir",
+        list_item_path(list, item),
+        data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+
+</li>
