@@ -1,0 +1,32 @@
+<%= form_with(model: [@list, @item]) do |form| %>
+
+  <!-- Campo título -->
+  <div>
+    <%= form.label :title, "Título da tarefa" %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <!-- Campo notas -->
+  <div>
+    <%= form.label :notes, "Descrição" %><br>
+    <%= form.text_area :notes %>
+  </div>
+
+  <!-- Checkbox concluído -->
+  <div>
+    <%= form.label :done, "Concluído?" %>
+    <%= form.check_box :done %>
+  </div>
+
+  <!-- Data limite -->
+  <div>
+    <%= form.label :due_date, "Data limite" %><br>
+    <%= form.datetime_select :due_date %>
+  </div>
+
+  <!-- Botão -->
+  <div>
+    <%= form.submit %>
+  </div>
+
+<% end %>

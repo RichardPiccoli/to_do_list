@@ -1,0 +1,21 @@
+<h1>Editar Lista</h1>
+
+<%= form_with(model: @list) do |form| %>
+
+  <div>
+    <%= form.label :title, "Título" %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.label :description, "Descrição" %><br>
+    <%= form.text_area :description %>
+  </div>
+
+  <div>
+    <%= form.submit "Atualizar Lista" %>
+  </div>
+
+<% end %>
+
+<%= link_to "Voltar", lists_path %>
