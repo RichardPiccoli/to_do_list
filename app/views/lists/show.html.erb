@@ -1,0 +1,57 @@
+<h1><%= @list.title %></h1>
+
+<p><%= @list.description %></p>
+
+<hr>
+
+<h2>Itens</h2>
+
+<!-- Lista de itens -->
+<% if @list.items.any? %>
+  <ul>
+    <% @list.items.each do |item| %>
+      <li>
+        <!-- Título -->
+        <strong><%= item.title %></strong>
+
+        <!-- Status -->
+        <% if item.done %>
+          <span>(Concluído)</span>
+        <% else %>
+          <span>(Pendente)</span>
+        <% end %>
+
+        <!-- Ações -->
+        <%= link_to "Editar", edit_list_item_path(@list, item) %>
+
+        <%= link_to "Excluir",
+              list_item_path(@list, item),
+              data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+      </li>
+    <% end %>
+  </ul>
+<% else %>
+  <p>Sem itens ainda.</p>
+<% end %>
+
+<hr>
+
+<h3>Adicionar novo item</h3>
+
+<!-- FORMULÁRIO DIRETO NA LISTA -->
+<%= form_with(model: [@list, Item.new]) do |form| %>
+
+  <div>
+    <%= form.label :title, "Título" %><br>
+    <%= form.text_field :title %>
+  </div>
+
+  <div>
+    <%= form.submit "Adicionar Item" %>
+  </div>
+
+<% end %>
+
+<hr>
+
+<%= link_to "Voltar", lists_path %>

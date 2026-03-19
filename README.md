@@ -77,3 +77,25 @@ Item:
 - due_date
 - position
 - list_id
+
+
+## API (exemplos)
+
+### Criar lista
+POST /lists
+
+{
+  "list": {
+    "title": "Estudos",
+    "description": "Semana"
+  }
+}
+
+### Criar item
+POST /lists/:list_id/items
+
+{
+  "item": {
+    "title": "Estudar Rails"
+  }
+}
