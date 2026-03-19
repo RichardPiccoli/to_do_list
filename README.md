@@ -59,3 +59,21 @@ rails server
 ```bash
 http://localhost:3000
 ```
+
+## Modelo de Dados
+
+List (1) para (N) Item
+
+List:
+- id
+- title
+- description
+
+Item:
+- id
+- title
+- notes
+- done
+- due_date
+- position
+- list_id
