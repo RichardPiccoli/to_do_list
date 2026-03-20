@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_list
-  before_action :set_item, only: [:update, :destroy]
+  before_action :set_item, only: [ :update, :destroy ]
 
   # Criação com Turbo
   def create
@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       flash.now[:error] = "Erro ao criar item."
 
       respond_to do |format|
-        format.turbo_stream { render :error }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
         format.html { render "lists/show", status: :unprocessable_entity }
       end
     end
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
       flash.now[:error] = "Erro ao atualizar item."
 
       respond_to do |format|
-        format.turbo_stream { render :error }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
         format.html { redirect_to list_path(@list), error: "Erro ao atualizar item." }
       end
     end
