@@ -26,6 +26,6 @@ class CreateItems < ActiveRecord::Migration[8.1]
     # Índices importantes para performance
     add_index :items, :done
     add_index :items, :due_date
-    add_index :items, [:list_id, :position]
+    add_index :items, [ :list_id, :position ]
   end
 end

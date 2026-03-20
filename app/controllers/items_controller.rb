@@ -1,6 +1,6 @@
 class ItemsController < ApplicationController
   before_action :set_list
-  before_action :set_item, only: [:update, :destroy]
+  before_action :set_item, only: [ :update, :destroy ]
 
   # Criação com Turbo
   def create

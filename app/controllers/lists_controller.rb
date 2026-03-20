@@ -1,6 +1,6 @@
 class ListsController < ApplicationController
   # Executa antes das ações que precisam de uma lista específica
-  before_action :set_list, only: [:show, :edit, :update, :destroy]
+  before_action :set_list, only: [ :show, :edit, :update, :destroy ]
 
   # GET /lists
   def index
