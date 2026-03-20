@@ -18,10 +18,15 @@ class ListsController < ApplicationController
 
   # GET /lists/:id
   def show
+    # Garante que @items sempre exista (mesmo se vazio)
+    @items = @list.items.ordenados
+
+    # Garante item para o formulário
+    @item = @list.items.new
+
     respond_to do |format|
       format.html
       format.json do
-        # Inclui os itens associados na resposta JSON
         render json: @list.as_json(include: :items), status: :ok
       end
     end
@@ -40,10 +45,12 @@ class ListsController < ApplicationController
 
     if @list.save
       respond_to do |format|
-        format.html { redirect_to @list, notice: "Lista criada com sucesso." }
+        format.html { redirect_to @list, success: "Lista criada com sucesso." }
         format.json { render json: @list, status: :created }
       end
     else
+      flash.now[:error] = "Erro ao criar lista."
+
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
         format.json { render json: @list.errors, status: :unprocessable_entity }
@@ -59,10 +66,12 @@ class ListsController < ApplicationController
   def update
     if @list.update(list_params)
       respond_to do |format|
-        format.html { redirect_to @list, notice: "Lista atualizada com sucesso." }
+        format.html { redirect_to @list, success: "Lista atualizada com sucesso." }
         format.json { render json: @list, status: :ok }
       end
     else
+      flash.now[:error] = "Erro ao atualizar lista."
+
       respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
         format.json { render json: @list.errors, status: :unprocessable_entity }
@@ -75,7 +84,7 @@ class ListsController < ApplicationController
     @list.destroy
 
     respond_to do |format|
-      format.html { redirect_to lists_path, notice: "Lista removida." }
+      format.html { redirect_to lists_path, success: "Lista removida com sucesso." }
       format.json { head :no_content }
     end
   end

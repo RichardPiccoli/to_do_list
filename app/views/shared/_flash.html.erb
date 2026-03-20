@@ -1,0 +1,11 @@
+<% flash.each do |tipo, mensagem| %>
+  <div style="
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    background-color: <%= tipo.to_s == 'success' ? '#d4edda' : '#f8d7da' %>;
+    color: <%= tipo.to_s == 'success' ? '#155724' : '#721c24' %>;
+  ">
+    <%= mensagem %>
+  </div>
+<% end %>

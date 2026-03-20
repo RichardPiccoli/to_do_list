@@ -1,23 +1,12 @@
 class List < ApplicationRecord
-  # Associação: uma lista possui vários itens
   has_many :items, dependent: :destroy
-  # dependent: :destroy garante que ao apagar uma lista,
-  # todos os itens associados também serão removidos
 
-  # Validação: título é obrigatório
-  validates :title, presence: true
+  # Validações
+  validates :title,
+            presence: { message: "não pode ficar vazio" },
+            length: { minimum: 3, message: "deve ter pelo menos 3 caracteres" }
 
-  # Validação: título deve ter tamanho mínimo
-  validates :title, length: { minimum: 3 }
-
-  # Método auxiliar (boa prática)
-  # Retorna apenas itens não concluídos
-  def itens_pendentes
-    items.where(done: false)
-  end
-
-  # Retorna itens concluídos
-  def itens_concluidos
-    items.where(done: true)
-  end
+  validates :description,
+            length: { maximum: 500, message: "muito longa (máximo 500 caracteres)" },
+            allow_blank: true
 end

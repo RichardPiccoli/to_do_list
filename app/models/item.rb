@@ -1,30 +1,15 @@
 class Item < ApplicationRecord
-  # Associação: item pertence a uma lista
   belongs_to :list
 
-  # Validação: título obrigatório
-  validates :title, presence: true
-
-  # Validação: título mínimo
-  validates :title, length: { minimum: 2 }
-
-  # Scope para facilitar consultas (boa prática)
-  # Retorna apenas itens concluídos
-  scope :concluidos, -> { where(done: true) }
-
-  # Retorna apenas itens pendentes
-  scope :pendentes, -> { where(done: false) }
-
-  # Ordenação por posição
+  # Ordenação
   scope :ordenados, -> { order(position: :asc) }
 
-  # Método para marcar como concluído
-  def marcar_como_concluido
-    update(done: true)
-  end
+  # Validações
+  validates :title,
+            presence: { message: "não pode ficar vazio" },
+            length: { minimum: 3, message: "deve ter pelo menos 3 caracteres" }
 
-  # Método para marcar como pendente
-  def marcar_como_pendente
-    update(done: false)
-  end
+  validates :notes,
+            length: { maximum: 300, message: "muito longa (máximo 300 caracteres)" },
+            allow_blank: true
 end
