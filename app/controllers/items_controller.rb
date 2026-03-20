@@ -17,7 +17,7 @@ class ItemsController < ApplicationController
       flash.now[:error] = "Erro ao criar item."
 
       respond_to do |format|
-        format.turbo_stream { render :error }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
         format.html { render "lists/show", status: :unprocessable_entity }
       end
     end
@@ -36,7 +36,7 @@ class ItemsController < ApplicationController
       flash.now[:error] = "Erro ao atualizar item."
 
       respond_to do |format|
-        format.turbo_stream { render :error }
+        format.turbo_stream { render :error, status: :unprocessable_entity }
         format.html { redirect_to list_path(@list), error: "Erro ao atualizar item." }
       end
     end
