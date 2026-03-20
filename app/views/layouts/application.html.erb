@@ -24,6 +24,11 @@
   </head>
 
   <body>
+    <!-- Container para flash messages com ID para Turbo Stream -->
+    <div id="flash_messages">
+      <%= render "shared/flash" %>
+    </div>
+
     <%= yield %>
   </body>
 </html>

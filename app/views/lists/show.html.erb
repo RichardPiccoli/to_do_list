@@ -8,7 +8,7 @@
 
 <!-- Lista com ID para Turbo -->
 <ul id="lista_items">
-  <% @list.items.each do |item| %>
+  <% @items.to_a.each do |item| %>
     <%= render partial: "items/item", locals: { item: item, list: @list } %>
   <% end %>
 </ul>
@@ -17,7 +17,7 @@
 
 <h3>Adicionar novo item</h3>
 
-<%= render partial: "items/form", locals: { list: @list, item: Item.new } %>
+<%= render partial: "items/form", locals: { list: @list, item: @item } %>
 
 <hr>
 

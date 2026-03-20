@@ -1,14 +1,30 @@
 <div id="novo_item_form">
 
-  <%= form_with(model: [list, item]) do |form| %>
+  <!-- Garante que list sempre exista -->
+  <% lista = local_assigns[:list] || @list %>
 
+  <%= form_with(model: [lista, item], data: { turbo: true }) do |form| %>
+
+    <!-- ERROS -->
+    <% if item.errors.any? %>
+      <div style="color: red;">
+        <h4>Erros:</h4>
+        <ul>
+          <% item.errors.full_messages.each do |mensagem| %>
+            <li><%= mensagem %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <!-- Campo -->
     <div>
       <%= form.label :title, "Nova tarefa" %><br>
-      <%= form.text_field :title, required: true %>
+      <%= form.text_field :title, required: true, minlength: 3 %>
     </div>
 
     <div>
-      <%= form.submit "Adicionar" %>
+      <%= form.submit "Adicionar", data: { disable_with: "Adicionando..." } %>
     </div>
 
   <% end %>
