@@ -2,7 +2,7 @@ ENV["RAILS_ENV"] ||= "test"
 require_relative "../config/environment"
 require "rails/test_help"
 
-# Inclui helpers do Devise para testes de integração e sistema (sign_in, sign_out)
+# Inclui helpers do Devise para testes de integração e sistema
 class ActionDispatch::IntegrationTest
   include Devise::Test::IntegrationHelpers
 end

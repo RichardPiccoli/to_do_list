@@ -1,10 +1,11 @@
 # Fixtures de listas (associadas aos usuários)
 one:
   user: one
-  title: MyString
-  description: MyText
+  title: Lista um
+  description: Descrição da lista um
 
 two:
   user: one
-  title: MyString
-  description: MyText
+  title: Lista dois
+  description: Descrição da lista dois
+  

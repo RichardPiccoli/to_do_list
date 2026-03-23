@@ -1,0 +1,5 @@
+# Traduções gerais para português
+pt-BR:
+  activerecord:
+    models:
+      user: "usuário"

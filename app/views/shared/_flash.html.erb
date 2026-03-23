@@ -1,8 +1,9 @@
 <div id="flash_messages">
   <% flash.each do |tipo, mensagem| %>
+    <%# success e notice (Devise) = verde; error e alert (Devise) = vermelho %>
     <div data-controller="flash-message"
          data-flash-message-timeout-value="3000"
-         class="flash-message p-3 mb-2 rounded shadow <%= tipo.to_s == 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' %>">
+         class="flash-message p-3 mb-2 rounded shadow <%= %w[success notice].include?(tipo.to_s) ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' %>">
       <%= mensagem %>
     </div>
   <% end %>

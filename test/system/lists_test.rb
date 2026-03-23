@@ -5,8 +5,8 @@ class ListsTest < ApplicationSystemTestCase
     # Cria usuário para autenticação (Devise exige email e senha)
     usuario = User.create!(
       email: "teste@exemplo.com",
-      password: "senha123456",
-      password_confirmation: "senha123456"
+      password: "Senha@123456",
+      password_confirmation: "Senha@123456"
     )
 
     # Simula login do usuário (Warden::Test::Helpers)

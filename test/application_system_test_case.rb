@@ -2,12 +2,14 @@ require "test_helper"
 require "capybara/rails"
 
 class ApplicationSystemTestCase < ActionDispatch::SystemTestCase
-  include Warden::Test::Helpers
-
+  # Usa o driver padrão do Rails (rack_test) para testes rápidos.
+  # Se quiser testar JavaScript, troque para :selenium (exige chromedriver).
   driven_by :rack_test
 
+  include Warden::Test::Helpers
+
   setup do
-    # Habilita modo de teste do Warden para uso de login_as nos testes
+    # Ativa o modo de teste do Warden para usar login_as
     Warden.test_mode!
   end
 
