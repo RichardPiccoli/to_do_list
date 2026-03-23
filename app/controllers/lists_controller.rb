@@ -4,8 +4,8 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    # Busca todas as listas no banco (includes evita N+1 ao renderizar itens)
-    @lists = List.includes(:items)
+    # Listas do usuário logado; includes evita N+1 ao renderizar itens
+    @lists = current_user.lists.includes(:items)
 
     respond_to do |format|
       # Resposta HTML (views)
@@ -34,13 +34,14 @@ class ListsController < ApplicationController
 
   # GET /lists/new
   def new
-    # Inicializa uma nova lista (para formulário)
-    @list = List.new
+    # Nova lista associada ao usuário logado (ainda não salva)
+    @list = current_user.lists.build
   end
 
   # POST /lists
   def create
-    @list = List.new(list_params)
+    # Cria lista associada ao usuário logado
+    @list = current_user.lists.build(list_params)
 
     if @list.save
       flash.now[:success] = "Lista criada com sucesso."
@@ -97,12 +98,12 @@ class ListsController < ApplicationController
     end
   end
 
-  # PATCH /lists/reorder - reordena as listas conforme IDs recebidos
+  # PATCH /lists/reorder - reordena as listas do usuário conforme IDs recebidos
   def reorder
-    list_ids = params[:list_ids]
+    list_ids = params[:list_ids] || []
 
     list_ids.each_with_index do |id, index|
-      List.find(id).update(position: index)
+      current_user.lists.find(id).update(position: index)
     end
 
     head :ok
@@ -110,9 +111,9 @@ class ListsController < ApplicationController
 
   private
 
-  # Busca a lista pelo ID
+  # Busca a lista pelo ID, somente entre as listas do usuário logado
   def set_list
-    @list = List.find(params[:id])
+    @list = current_user.lists.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { erro: "Lista não encontrada" }, status: :not_found
   end

@@ -2,6 +2,17 @@ require "application_system_test_case"
 
 class ListsTest < ApplicationSystemTestCase
   test "criar lista e item" do
+    # Cria usuário para autenticação (Devise exige email e senha)
+    usuario = User.create!(
+      email: "teste@exemplo.com",
+      password: "senha123456",
+      password_confirmation: "senha123456"
+    )
+
+    # Simula login do usuário (Warden::Test::Helpers)
+    login_as(usuario, scope: :user)
+
+    # Acessa a página de listas (requer usuário autenticado)
     visit lists_path
 
     # O formulário de nova lista já está visível, então preenchemos diretamente

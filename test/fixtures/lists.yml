@@ -1,9 +1,10 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Fixtures de listas (associadas aos usuários)
 one:
+  user: one
   title: MyString
   description: MyText
 
 two:
+  user: one
   title: MyString
   description: MyText
