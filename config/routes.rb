@@ -1,12 +1,15 @@
 Rails.application.routes.draw do
+  devise_for :users
   resources :lists do
-    resources :items
+    resources :items do
+      patch :reorder, on: :collection # PATCH /lists/:list_id/items/reorder
+    end
     patch :reorder, on: :collection   # Para reordenar listas
   end
 
-  # Para reordenar itens dentro de uma lista
+  # Para mover um item para outra lista
   resources :items do
-    patch :move, on: :member          # Para mover um item para outra lista
+    patch :move, on: :member
   end
 
   root "lists#index"

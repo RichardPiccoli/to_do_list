@@ -1,8 +1,8 @@
 class ItemsController < ApplicationController
-  before_action :set_list
+  before_action :set_list, except: [ :move ]
   before_action :set_item, only: [ :update, :destroy ]
 
-  # Criação com Turbo
+  # POST /lists/:list_id/items - criação com Turbo Stream
   def create
     @item = @list.items.new(item_params)
 
@@ -53,11 +53,10 @@ class ItemsController < ApplicationController
     end
   end
 
-  # app/controllers/items_controller.rb
+  # PATCH /lists/:list_id/items/reorder - reordena itens dentro da lista do usuário
   def reorder
-    # Este método é chamado com o list_id e um array de item_ids
-    list = List.find(params[:list_id])
-    item_ids = params[:item_ids]
+    list = current_user.lists.find(params[:list_id])
+    item_ids = params[:item_ids] || []
 
     item_ids.each_with_index do |id, index|
       list.items.find(id).update(position: index)
@@ -66,18 +65,15 @@ class ItemsController < ApplicationController
     head :ok
   end
 
-  # app/controllers/items_controller.rb
+  # PATCH /items/:id/move - move item para outra lista do usuário (rota top-level)
   def move
-    @item = Item.find(params[:id])
-    new_list_id = params[:list_id]
-    new_position = params[:position].to_i
+    @item = current_user.items.find(params[:id])
+    new_list = current_user.lists.find(params[:list_id])
+    new_position = [ params[:position].to_i, 0 ].max
 
-    # Atualiza a lista e a posição
-    @item.update(list_id: new_list_id, position: new_position)
+    @item.update(list_id: new_list.id, position: new_position)
 
-    # Reordenar os itens da nova lista para garantir consistência
-    list = List.find(new_list_id)
-    list.items.order(:position).each_with_index do |item, idx|
+    new_list.items.order(:position).each_with_index do |item, idx|
       item.update(position: idx) unless item.position == idx
     end
 
@@ -86,10 +82,12 @@ class ItemsController < ApplicationController
 
   private
 
+  # Carrega a lista pelo list_id, somente entre as listas do usuário logado
   def set_list
-    @list = List.find(params[:list_id])
+    @list = current_user.lists.find(params[:list_id])
   end
 
+  # Carrega o item pelo id dentro da lista; trata RecordNotFound com redirect ou Turbo Stream
   def set_item
     @item = @list.items.find(params[:id])
   rescue ActiveRecord::RecordNotFound
@@ -102,6 +100,7 @@ class ItemsController < ApplicationController
     end
   end
 
+  # Strong parameters para item
   def item_params
     params.require(:item).permit(:title, :notes, :done, :due_date, :position)
   end

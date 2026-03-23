@@ -1,8 +1,13 @@
 require "test_helper"
 
 class ItemsControllerTest < ActionDispatch::IntegrationTest
-  def setup
-    @list = List.create!(title: "Lista teste")
+  setup do
+    # Autentica um usuário
+    @user = users(:one)
+    sign_in @user
+
+    # Cria uma lista associada ao usuário
+    @list = @user.lists.create!(title: "Lista teste")
   end
 
   test "deve criar item válido" do

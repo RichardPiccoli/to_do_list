@@ -1,0 +1,68 @@
+# Traduções do Devise para português
+pt-BR:
+  devise:
+    confirmations:
+      confirmed: "Seu e-mail foi confirmado com sucesso."
+      send_instructions: "Você receberá um e-mail com as instruções para confirmar seu endereço em alguns minutos."
+      send_paranoid_instructions: "Se seu e-mail estiver cadastrado, você receberá as instruções de confirmação em alguns minutos."
+    failure:
+      already_authenticated: "Você já está conectado."
+      inactive: "Sua conta ainda não foi ativada."
+      invalid: "E-mail ou senha inválidos."
+      locked: "Sua conta está bloqueada."
+      last_attempt: "Você tem mais uma tentativa antes de sua conta ser bloqueada."
+      not_found_in_database: "E-mail ou senha inválidos."
+      timeout: "Sua sessão expirou. Entre novamente para continuar."
+      unauthenticated: "Você precisa entrar ou se cadastrar para continuar."
+      unconfirmed: "Você precisa confirmar seu e-mail antes de continuar."
+    mailer:
+      confirmation_instructions:
+        subject: "Instruções de confirmação"
+      reset_password_instructions:
+        subject: "Instruções para redefinir a senha"
+      unlock_instructions:
+        subject: "Instruções para desbloquear conta"
+      email_changed:
+        subject: "E-mail alterado"
+      password_change:
+        subject: "Senha alterada"
+    passwords:
+      no_token: "Você não pode acessar esta página sem vir do e-mail de redefinição de senha."
+      send_instructions: "Você receberá um e-mail com instruções para redefinir sua senha em alguns minutos."
+      send_paranoid_instructions: "Se seu e-mail estiver cadastrado, você receberá um link para redefinir sua senha."
+      updated: "Sua senha foi alterada com sucesso. Você já está conectado."
+      updated_not_active: "Sua senha foi alterada com sucesso."
+    registrations:
+      destroyed: "Sua conta foi excluída com sucesso. Até logo!"
+      signed_up: "Cadastro realizado com sucesso! Bem-vindo."
+      signed_up_but_inactive: "Cadastro realizado, mas não foi possível entrar porque sua conta ainda não está ativada."
+      signed_up_but_locked: "Cadastro realizado, mas sua conta está bloqueada."
+      signed_up_but_unconfirmed: "Um e-mail de confirmação foi enviado. Siga o link para ativar sua conta."
+      update_needs_confirmation: "Conta atualizada. Verifique seu e-mail e confirme o novo endereço."
+      updated: "Sua conta foi atualizada com sucesso."
+      updated_but_not_signed_in: "Conta atualizada. Entre novamente pois sua senha foi alterada."
+    sessions:
+      signed_in: "Login realizado com sucesso."
+      signed_out: "Saída realizada com sucesso."
+      already_signed_out: "Saída realizada com sucesso."
+    unlocks:
+      send_instructions: "Você receberá um e-mail com instruções para desbloquear sua conta em alguns minutos."
+      send_paranoid_instructions: "Se sua conta existir, você receberá as instruções por e-mail."
+      unlocked: "Sua conta foi desbloqueada. Entre novamente para continuar."
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            password:
+              too_short: "deve ter no mínimo %{count} caracteres"
+  errors:
+    messages:
+      already_confirmed: "já foi confirmado, tente entrar"
+      confirmation_period_expired: "precisa ser confirmado dentro do prazo; solicite um novo"
+      expired: "expirou; solicite um novo"
+      not_found: "não encontrado"
+      not_locked: "não estava bloqueado"
+      not_saved:
+        one: "1 erro impediu que este %{resource} fosse salvo:"
+        other: "%{count} erros impediram que este %{resource} fosse salvo:"

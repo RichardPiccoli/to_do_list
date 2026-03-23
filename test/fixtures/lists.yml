@@ -1,9 +1,11 @@
-# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
-
+# Fixtures de listas (associadas aos usuários)
 one:
-  title: MyString
-  description: MyText
+  user: one
+  title: Lista um
+  description: Descrição da lista um
 
 two:
-  title: MyString
-  description: MyText
+  user: one
+  title: Lista dois
+  description: Descrição da lista dois
+  

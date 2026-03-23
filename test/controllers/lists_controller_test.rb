@@ -1,6 +1,12 @@
 require "test_helper"
 
 class ListsControllerTest < ActionDispatch::IntegrationTest
+  setup do
+    # Autentica um usuário (fixture "one")
+    @user = users(:one)
+    sign_in @user
+  end
+
   test "deve listar listas" do
     get lists_url
     assert_response :success
@@ -27,7 +33,8 @@ class ListsControllerTest < ActionDispatch::IntegrationTest
   end
 
   test "deve deletar lista" do
-    list = List.create!(title: "Teste")
+    # Cria uma lista associada ao usuário autenticado
+    list = @user.lists.create!(title: "Teste")
 
     assert_difference("List.count", -1) do
       delete list_url(list)

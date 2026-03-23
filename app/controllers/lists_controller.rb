@@ -4,8 +4,8 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    # Busca todas as listas no banco
-    @lists = List.all
+    # Listas do usuário logado; includes evita N+1 ao renderizar itens
+    @lists = current_user.lists.includes(:items)
 
     respond_to do |format|
       # Resposta HTML (views)
@@ -34,13 +34,14 @@ class ListsController < ApplicationController
 
   # GET /lists/new
   def new
-    # Inicializa uma nova lista (para formulário)
-    @list = List.new
+    # Nova lista associada ao usuário logado (ainda não salva)
+    @list = current_user.lists.build
   end
 
   # POST /lists
   def create
-    @list = List.new(list_params)
+    # Cria lista associada ao usuário logado
+    @list = current_user.lists.build(list_params)
 
     if @list.save
       flash.now[:success] = "Lista criada com sucesso."
@@ -97,26 +98,24 @@ class ListsController < ApplicationController
     end
   end
 
-  private
-
-  # Busca a lista pelo ID
-  def set_list
-    @list = List.find(params[:id])
-  rescue ActiveRecord::RecordNotFound
-    render json: { erro: "Lista não encontrada" }, status: :not_found
-  end
-
-  # app/controllers/lists_controller.rb
+  # PATCH /lists/reorder - reordena as listas do usuário conforme IDs recebidos
   def reorder
-    # Espera um array de IDs na ordem desejada
-    list_ids = params[:list_ids]
+    list_ids = params[:list_ids] || []
 
-    # Atualiza a posição de cada lista com base na ordem
     list_ids.each_with_index do |id, index|
-      List.find(id).update(position: index)
+      current_user.lists.find(id).update(position: index)
     end
 
-    head :ok  # Retorna apenas status 200 sem conteúdo
+    head :ok
+  end
+
+  private
+
+  # Busca a lista pelo ID, somente entre as listas do usuário logado
+  def set_list
+    @list = current_user.lists.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    render json: { erro: "Lista não encontrada" }, status: :not_found
   end
 
   # Strong parameters (segurança)

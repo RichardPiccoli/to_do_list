@@ -20,6 +20,23 @@
         <h1 class="text-xl font-bold">To Do List</h1>
       </div>
 
+      <%# Links de autenticação: email + Sair (logado) ou Entrar + Cadastrar (deslogado) %>
+      <nav class="flex items-center gap-4">
+        <% if user_signed_in? %>
+          <span class="text-sm text-gray-600"><%= current_user.email %></span>
+          <%= link_to "Sair",
+                destroy_user_session_path,
+                data: { turbo_method: :delete },
+                class: "text-purple-600 hover:text-purple-700 font-medium" %>
+        <% else %>
+          <%= link_to "Entrar",
+                new_user_session_path,
+                class: "text-purple-600 hover:text-purple-700 font-medium" %>
+          <%= link_to "Cadastrar",
+                new_user_registration_path,
+                class: "text-purple-600 hover:text-purple-700 font-medium" %>
+        <% end %>
+      </nav>
     </header>
 
     <div id="flash_messages" class="p-4 min-h-[5.6rem]">
