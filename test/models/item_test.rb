@@ -17,9 +17,9 @@ class ItemTest < ActiveSupport::TestCase
   end
 
   test "não deve aceitar título curto" do
-    item = @list.items.new(title: "ab")
+    item = Item.new(title: "ab")
     assert_not item.valid?
-    assert_includes item.errors[:title], "deve ter pelo menos 3 caracteres"
+    assert_includes item.errors[:title], "deve ter entre 3 e 100 caracteres"
   end
 
   test "notes não deve ultrapassar 300 caracteres" do

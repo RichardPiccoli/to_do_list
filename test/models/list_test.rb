@@ -15,7 +15,7 @@ class ListTest < ActiveSupport::TestCase
   test "não deve aceitar título curto" do
     list = List.new(title: "ab")
     assert_not list.valid?
-    assert_includes list.errors[:title], "deve ter pelo menos 3 caracteres"
+    assert_includes list.errors[:title], "deve ter entre 3 e 100 caracteres"
   end
 
   test "descrição não deve ultrapassar 500 caracteres" do
