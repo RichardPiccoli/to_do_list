@@ -1,4 +1,4 @@
 class ApplicationController < ActionController::Base
-  # Permite usar flash com Turbo Streams
+  # Registra tipos customizados de flash para uso em Turbo Streams e redirects
   add_flash_types :success, :error, :warning
 end

@@ -9,7 +9,7 @@ class List < ApplicationRecord
             presence: { message: "não pode ficar vazio" },
             length: {
               minimum: 3,
-              maximum: 100,   # <- Adicionado: limite de 100 caracteres
+              maximum: 100,
               message: "deve ter entre 3 e 100 caracteres"
             }
 

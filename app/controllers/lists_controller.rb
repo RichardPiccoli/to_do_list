@@ -4,8 +4,8 @@ class ListsController < ApplicationController
 
   # GET /lists
   def index
-    # Busca todas as listas no banco
-    @lists = List.all
+    # Busca todas as listas no banco (includes evita N+1 ao renderizar itens)
+    @lists = List.includes(:items)
 
     respond_to do |format|
       # Resposta HTML (views)
@@ -97,6 +97,17 @@ class ListsController < ApplicationController
     end
   end
 
+  # PATCH /lists/reorder - reordena as listas conforme IDs recebidos
+  def reorder
+    list_ids = params[:list_ids]
+
+    list_ids.each_with_index do |id, index|
+      List.find(id).update(position: index)
+    end
+
+    head :ok
+  end
+
   private
 
   # Busca a lista pelo ID
@@ -104,19 +115,6 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { erro: "Lista não encontrada" }, status: :not_found
-  end
-
-  # app/controllers/lists_controller.rb
-  def reorder
-    # Espera um array de IDs na ordem desejada
-    list_ids = params[:list_ids]
-
-    # Atualiza a posição de cada lista com base na ordem
-    list_ids.each_with_index do |id, index|
-      List.find(id).update(position: index)
-    end
-
-    head :ok  # Retorna apenas status 200 sem conteúdo
   end
 
   # Strong parameters (segurança)
