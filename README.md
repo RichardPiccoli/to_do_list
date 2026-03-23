@@ -41,10 +41,10 @@ Aplicação full-stack desenvolvida em Ruby on Rails como parte do desafio técn
 
 1. **Clonar o repositório**
 ```bash
-git clone https://github.com/SEU_USUARIO/todo-v360.git
+git clone https://github.com/RichardPiccoli/to_do_list
 ```
 ```bash
-cd todo-v360
+cd to_do_list
 ```
 
 
@@ -169,4 +169,4 @@ Content-Type: application/json
 
 ## Autor
 
-Desenvolvido por Richard Piccoli para o processo seletivo da V360.
+Desenvolvido por Richard Piccoli.
