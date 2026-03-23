@@ -40,12 +40,14 @@ class ListsController < ApplicationController
 
   # POST /lists
   def create
-    # Cria lista com parâmetros permitidos
     @list = List.new(list_params)
 
     if @list.save
+      flash.now[:success] = "Lista criada com sucesso."
+
       respond_to do |format|
         format.html { redirect_to @list, success: "Lista criada com sucesso." }
+        format.turbo_stream
         format.json { render json: @list, status: :created }
       end
     else
@@ -53,6 +55,7 @@ class ListsController < ApplicationController
 
       respond_to do |format|
         format.html { render :new, status: :unprocessable_entity }
+        format.turbo_stream { render :error }
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
@@ -65,8 +68,11 @@ class ListsController < ApplicationController
   # PATCH/PUT /lists/:id
   def update
     if @list.update(list_params)
+      flash.now[:success] = "Lista atualizada com sucesso."
+
       respond_to do |format|
         format.html { redirect_to @list, success: "Lista atualizada com sucesso." }
+        format.turbo_stream
         format.json { render json: @list, status: :ok }
       end
     else
@@ -74,17 +80,19 @@ class ListsController < ApplicationController
 
       respond_to do |format|
         format.html { render :edit, status: :unprocessable_entity }
+        format.turbo_stream { render :error }
         format.json { render json: @list.errors, status: :unprocessable_entity }
       end
     end
   end
-
   # DELETE /lists/:id
   def destroy
     @list.destroy
+    flash.now[:success] = "Lista removida com sucesso."
 
     respond_to do |format|
       format.html { redirect_to lists_path, success: "Lista removida com sucesso." }
+      format.turbo_stream
       format.json { head :no_content }
     end
   end
@@ -96,6 +104,19 @@ class ListsController < ApplicationController
     @list = List.find(params[:id])
   rescue ActiveRecord::RecordNotFound
     render json: { erro: "Lista não encontrada" }, status: :not_found
+  end
+
+  # app/controllers/lists_controller.rb
+  def reorder
+    # Espera um array de IDs na ordem desejada
+    list_ids = params[:list_ids]
+
+    # Atualiza a posição de cada lista com base na ordem
+    list_ids.each_with_index do |id, index|
+      List.find(id).update(position: index)
+    end
+
+    head :ok  # Retorna apenas status 200 sem conteúdo
   end
 
   # Strong parameters (segurança)

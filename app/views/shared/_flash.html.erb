@@ -1,11 +1,9 @@
-<% flash.each do |tipo, mensagem| %>
-  <div style="
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 5px;
-    background-color: <%= tipo.to_s == 'success' ? '#d4edda' : '#f8d7da' %>;
-    color: <%= tipo.to_s == 'success' ? '#155724' : '#721c24' %>;
-  ">
-    <%= mensagem %>
-  </div>
-<% end %>
+<div id="flash_messages">
+  <% flash.each do |tipo, mensagem| %>
+    <div data-controller="flash-message"
+         data-flash-message-timeout-value="3000"
+         class="flash-message p-3 mb-2 rounded shadow <%= tipo.to_s == 'success' ? 'bg-green-200 text-green-800' : 'bg-red-200 text-red-800' %>">
+      <%= mensagem %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,38 @@
+<%# Partial responsável por renderizar uma coluna (lista) no board %>
+<%# dom_id(list) gera um ID no formato "list_123" %>
+<div id="<%= dom_id(list) %>"
+     class="min-w-[300px] bg-gray-200 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+
+  <%# Cabeçalho da lista: título e botão de exclusão %>
+  <div class="flex justify-between items-center mb-2">
+    <h2 class="font-semibold"><%= list.title %></h2>
+    <%= link_to "✕",
+          list_path(list),
+          data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" },
+          class: "text-red-500" %>
+  </div>
+
+  <%# NOVA LINHA: exibe a descrição se ela existir %>
+  <% if list.description.present? %>
+    <p class="text-sm text-gray-600 dark:text-gray-400 mb-2 truncate">
+      <%= list.description %>
+    </p>
+  <% end %>
+
+  <%# Lista de itens (ul) – cada item será renderizado pelo partial _item %>
+  <%# O ID da ul também é dinâmico, usado pelo SortableJS %>
+  <ul id="lista_items_<%= list.id %>"
+      data-controller="sortable"
+      data-sortable-group-value="items"
+      class="space-y-2">
+    <% list.items.ordenados.each do |item| %>
+      <%= render partial: "items/item", locals: { item: item, list: list } %>
+    <% end %>
+  </ul>
+
+  <%# Formulário para adicionar novo item, com ID dinâmico para ser usado pelo Turbo %>
+  <div id="novo_item_form_<%= list.id %>" class="mt-3">
+    <%= render partial: "items/form", locals: { list: list, item: list.items.new } %>
+  </div>
+
+</div>

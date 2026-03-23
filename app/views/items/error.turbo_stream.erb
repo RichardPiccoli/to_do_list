@@ -1,7 +1,9 @@
-<%= turbo_stream.replace "novo_item_form" do %>
-  <%= render partial: "items/form", locals: { list: @list, item: @item } %>
+<%= turbo_stream.replace "novo_item_form_#{@list.id}" do %>
+  <div id="novo_item_form_<%= @list.id %>" class="mt-3">
+    <%= render partial: "items/form", locals: { list: @list, item: @item } %>
+  </div>
 <% end %>
 
-<%= turbo_stream.replace "flash_messages" do %>
+<%= turbo_stream.update "flash_messages" do %>
   <%= render "shared/flash" %>
 <% end %>

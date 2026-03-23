@@ -8,3 +8,16 @@
  *
  * Consider organizing styles into separate files for maintainability.
  */
+
+ /* usando tailwind */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* app/assets/stylesheets/application.css */
+
+/* Estilo para o elemento fantasma enquanto arrasta */
+.sortable-drag {
+  opacity: 0.5;               /* Torna o item semi-transparente */
+  background-color: #e2e8f0;  /* Fundo cinza claro (pode ajustar) */
+}

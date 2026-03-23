@@ -53,6 +53,37 @@ class ItemsController < ApplicationController
     end
   end
 
+  # app/controllers/items_controller.rb
+  def reorder
+    # Este método é chamado com o list_id e um array de item_ids
+    list = List.find(params[:list_id])
+    item_ids = params[:item_ids]
+
+    item_ids.each_with_index do |id, index|
+      list.items.find(id).update(position: index)
+    end
+
+    head :ok
+  end
+
+  # app/controllers/items_controller.rb
+  def move
+    @item = Item.find(params[:id])
+    new_list_id = params[:list_id]
+    new_position = params[:position].to_i
+
+    # Atualiza a lista e a posição
+    @item.update(list_id: new_list_id, position: new_position)
+
+    # Reordenar os itens da nova lista para garantir consistência
+    list = List.find(new_list_id)
+    list.items.order(:position).each_with_index do |item, idx|
+      item.update(position: idx) unless item.position == idx
+    end
+
+    head :ok
+  end
+
   private
 
   def set_list

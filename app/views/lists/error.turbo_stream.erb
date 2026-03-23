@@ -1,0 +1,14 @@
+<%# Atualiza o formulário de nova lista, mantendo os erros %>
+<%= turbo_stream.replace "new_list_form" do %>
+  <div id="new_list_form"
+       data-sortable-ignore="true"
+       class="min-w-[300px] bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+    <h2 class="font-semibold mb-2">Nova Lista</h2>
+    <%= render partial: "lists/form", locals: { list: @list } %>
+  </div>
+<% end %>
+
+<%# Atualiza o conteúdo da área de flash (NÃO substitui o container) %>
+<%= turbo_stream.update "flash_messages" do %>
+  <%= render "shared/flash" %>
+<% end %>

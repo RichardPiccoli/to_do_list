@@ -1,10 +1,17 @@
 class List < ApplicationRecord
   has_many :items, dependent: :destroy
 
+  # Ordenação padrão por posição
+  default_scope { order(position: :asc) }
+
   # Validações
   validates :title,
             presence: { message: "não pode ficar vazio" },
-            length: { minimum: 3, message: "deve ter pelo menos 3 caracteres" }
+            length: {
+              minimum: 3,
+              maximum: 100,   # <- Adicionado: limite de 100 caracteres
+              message: "deve ter entre 3 e 100 caracteres"
+            }
 
   validates :description,
             length: { maximum: 500, message: "muito longa (máximo 500 caracteres)" },

@@ -1,14 +1,12 @@
 <h1><%= @list.title %></h1>
-
 <p><%= @list.description %></p>
 
 <hr>
 
 <h2>Itens</h2>
 
-<!-- Lista com ID para Turbo -->
-<ul id="lista_items">
-  <% @items.to_a.each do |item| %>
+<ul id="lista_items_<%= @list.id %>" class="space-y-2">
+  <% @list.items.ordenados.each do |item| %>
     <%= render partial: "items/item", locals: { item: item, list: @list } %>
   <% end %>
 </ul>
@@ -17,7 +15,9 @@
 
 <h3>Adicionar novo item</h3>
 
-<%= render partial: "items/form", locals: { list: @list, item: @item } %>
+<div id="novo_item_form_<%= @list.id %>" class="mt-3">
+  <%= render partial: "items/form", locals: { list: @list, item: @list.items.new } %>
+</div>
 
 <hr>
 

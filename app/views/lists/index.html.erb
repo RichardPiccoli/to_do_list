@@ -1,19 +1,20 @@
-<h1>Listas</h1>
+<h1 class="text-2xl font-bold mb-4">Minhas Listas</h1>
 
-<%= link_to "Nova Lista", new_list_path %>
+<div id="board_lists"
+     data-controller="sortable"
+     data-sortable-group-value="lists"
+     data-sortable-scroll-sensitivity="50"
+     data-sortable-scroll-speed="15"
+     class="flex gap-4 overflow-x-auto pb-4">
 
-<hr>
+  <%= render @lists %>
 
-<ul>
-  <% @lists.each do |list| %>
-    <li>
-      <strong><%= list.title %></strong>
+  <!-- Box "Nova Lista" – NÃO arrastável -->
+  <div id="new_list_form"
+       data-sortable-ignore="true"
+       class="min-w-[300px] bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+    <h2 class="font-semibold mb-2">Nova Lista</h2>
+    <%= render partial: "lists/form", locals: { list: List.new } %>
+  </div>
 
-      <%= link_to "Abrir", list_path(list) %>
-
-      <%= link_to "Excluir",
-            list_path(list),
-            data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
-    </li>
-  <% end %>
-</ul>
+</div>
