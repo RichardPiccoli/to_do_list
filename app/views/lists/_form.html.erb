@@ -1,11 +1,11 @@
-<%= form_with(model: @list) do |form| %>
+<% lista = local_assigns[:list] || @list %>
 
-  <!-- ERROS -->
-  <% if @list.errors.any? %>
-    <div style="color: red;">
-      <h4>Erros:</h4>
-      <ul>
-        <% @list.errors.full_messages.each do |mensagem| %>
+<%= form_with(model: lista, data: { turbo: true }, class: "flex flex-col gap-2") do |form| %>
+
+  <% if lista.errors.any? %>
+    <div class="mb-2 p-2 rounded bg-red-100 text-red-800 border border-red-300 text-sm">
+      <ul class="list-disc list-inside">
+        <% lista.errors.full_messages.each do |mensagem| %>
           <li><%= mensagem %></li>
         <% end %>
       </ul>
@@ -13,17 +13,23 @@
   <% end %>
 
   <div>
-    <%= form.label :title, "Título" %><br>
-    <%= form.text_field :title, required: true, minlength: 3 %>
+    <%= form.label :title, "Título", class: "block text-sm font-medium mb-1" %>
+    <%= form.text_field :title,
+          placeholder: "Nome da lista",
+          class: "w-full p-2 rounded border border-gray-300" %>
   </div>
 
   <div>
-    <%= form.label :description, "Descrição" %><br>
-    <%= form.text_area :description %>
+    <%= form.label :description, "Descrição", class: "block text-sm font-medium mb-1" %>
+    <%= form.text_area :description,
+          placeholder: "Descrição opcional",
+          rows: 3,
+          class: "w-full p-2 rounded border border-gray-300" %>
   </div>
 
   <div>
-    <%= form.submit %>
+    <%= form.submit "Salvar",
+          class: "bg-orange-600 text-white px-4 py-2 rounded hover:bg-orange-700 transition cursor-pointer" %>
   </div>
 
 <% end %>

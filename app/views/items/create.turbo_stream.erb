@@ -1,12 +1,14 @@
-<%= turbo_stream.append "lista_items" do %>
+<%= turbo_stream.append "lista_items_#{@list.id}" do %>
   <%= render partial: "items/item", locals: { item: @item, list: @list } %>
 <% end %>
 
-<%= turbo_stream.replace "novo_item_form" do %>
-  <%= render partial: "items/form", locals: { list: @list, item: Item.new } %>
+<%= turbo_stream.replace "novo_item_form_#{@list.id}" do %>
+  <div id="novo_item_form_<%= @list.id %>" class="mt-3">
+    <%= render partial: "items/form", locals: { list: @list, item: Item.new } %>
+  </div>
 <% end %>
 
-<!-- ATUALIZA FLASH -->
-<%= turbo_stream.replace "flash_messages" do %>
+<%# Atualiza apenas o conteúdo do container de flash %>
+<%= turbo_stream.update "flash_messages" do %>
   <%= render "shared/flash" %>
 <% end %>

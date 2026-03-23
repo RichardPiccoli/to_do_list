@@ -1,0 +1,16 @@
+<%= turbo_stream.before "new_list_form" do %>
+  <%= render partial: "lists/list", locals: { list: @list } %>
+<% end %>
+
+<%= turbo_stream.replace "new_list_form" do %>
+  <div id="new_list_form"
+       data-sortable-ignore="true"
+       class="min-w-[300px] bg-gray-100 p-4 rounded-lg shadow-md hover:shadow-lg transition duration-200">
+    <h2 class="font-semibold mb-2">Nova Lista</h2>
+    <%= render partial: "lists/form", locals: { list: List.new } %>
+  </div>
+<% end %>
+
+<%= turbo_stream.update "flash_messages" do %>
+  <%= render "shared/flash" %>
+<% end %>

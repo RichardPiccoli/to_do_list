@@ -2,7 +2,6 @@
   <%= render partial: "items/item", locals: { item: @item, list: @list } %>
 <% end %>
 
-<!-- ATUALIZA FLASH -->
-<%= turbo_stream.replace "flash_messages" do %>
+<%= turbo_stream.update "flash_messages" do %>
   <%= render "shared/flash" %>
 <% end %>

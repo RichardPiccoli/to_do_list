@@ -7,7 +7,11 @@ class Item < ApplicationRecord
   # Validações
   validates :title,
             presence: { message: "não pode ficar vazio" },
-            length: { minimum: 3, message: "deve ter pelo menos 3 caracteres" }
+            length: {
+              minimum: 3,
+              maximum: 100,   # <- Adicionado: limite de 100 caracteres
+              message: "deve ter entre 3 e 100 caracteres"
+            }
 
   validates :notes,
             length: { maximum: 300, message: "muito longa (máximo 300 caracteres)" },

@@ -3,32 +3,32 @@
   <head>
     <title><%= content_for(:title) || "To Do List" %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="application-name" content="To Do List">
-    <meta name="mobile-web-app-capable" content="yes">
+
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= yield :head %>
-
-    <%# Enable PWA manifest for installable apps (make sure to enable in config/routes.rb too!) %>
-    <%#= tag.link rel: "manifest", href: pwa_manifest_path(format: :json) %>
-
-    <link rel="icon" href="/icon.png" type="image/png">
-    <link rel="icon" href="/icon.svg" type="image/svg+xml">
-    <link rel="apple-touch-icon" href="/icon.png">
-
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <!-- Container para flash messages com ID para Turbo Stream -->
-    <div id="flash_messages">
+  <body class="bg-gray-100 text-gray-900">
+
+    <!-- HEADER -->
+    <header class="flex items-center justify-between p-4 bg-white shadow">
+      <div class="flex items-center gap-3">
+        <img src="/images/logo.png" alt="Logo" class="h-14 w-16">
+        <h1 class="text-xl font-bold">To Do List</h1>
+      </div>
+
+    </header>
+
+    <div id="flash_messages" class="p-4 min-h-[5.6rem]">
       <%= render "shared/flash" %>
     </div>
 
-    <%= yield %>
+    <main class="px-4 pb-4 pt-0">
+      <%= yield %>
+    </main>
+
   </body>
 </html>

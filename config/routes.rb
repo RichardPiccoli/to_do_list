@@ -1,10 +1,13 @@
 Rails.application.routes.draw do
-  # Rotas para listas
   resources :lists do
-    # Rotas aninhadas para itens dentro de listas
     resources :items
+    patch :reorder, on: :collection   # Para reordenar listas
   end
 
-  # Define a página inicial como lista de listas
+  # Para reordenar itens dentro de uma lista
+  resources :items do
+    patch :move, on: :member          # Para mover um item para outra lista
+  end
+
   root "lists#index"
 end

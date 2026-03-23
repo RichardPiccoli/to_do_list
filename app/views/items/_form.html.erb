@@ -1,15 +1,12 @@
-<div id="novo_item_form">
+<% lista = local_assigns[:list] || @list %>
 
-  <!-- Garante que list sempre exista -->
-  <% lista = local_assigns[:list] || @list %>
+<div class="w-full">
+  <%= form_with(model: [lista, item], data: { turbo: true }, class: "w-full") do |form| %>
 
-  <%= form_with(model: [lista, item], data: { turbo: true }) do |form| %>
-
-    <!-- ERROS -->
+    <!-- ERROS - aparece acima do campo -->
     <% if item.errors.any? %>
-      <div style="color: red;">
-        <h4>Erros:</h4>
-        <ul>
+      <div class="mb-2 p-2 rounded bg-red-100 text-red-800 border border-red-300 text-sm">
+        <ul class="list-disc list-inside">
           <% item.errors.full_messages.each do |mensagem| %>
             <li><%= mensagem %></li>
           <% end %>
@@ -17,16 +14,15 @@
       </div>
     <% end %>
 
-    <!-- Campo -->
-    <div>
-      <%= form.label :title, "Nova tarefa" %><br>
-      <%= form.text_field :title, required: true, minlength: 3 %>
-    </div>
+    <!-- Container para campo + botão (inline) -->
+    <div class="flex gap-2 w-full">
+      <%= form.text_field :title,
+            placeholder: "Nova tarefa...",
+            class: "flex-1 px-2 py-1 rounded border border-gray-300" %>
 
-    <div>
-      <%= form.submit "Adicionar", data: { disable_with: "Adicionando..." } %>
+      <%= form.submit "+",
+            class: "bg-purple-600 text-white p-2 rounded hover:bg-purple-700 transition" %>
     </div>
 
   <% end %>
-
 </div>

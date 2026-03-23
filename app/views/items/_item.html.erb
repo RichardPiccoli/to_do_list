@@ -1,26 +1,28 @@
-<li id="<%= dom_id(item) %>">
+<%# Partial responsável por renderizar um item de tarefa %>
+<%# dom_id(item) gera um ID no formato "item_123" %>
+<li id="<%= dom_id(item) %>"
+    class="bg-white p-3 rounded shadow-md hover:shadow-lg transition flex justify-between items-center">
 
-  <!-- Checkbox para marcar como concluído -->
-  <%= form_with(model: [list, item], method: :patch) do |form| %>
-    <%= form.check_box :done, checked: item.done,
-          onchange: "this.form.submit()" %>
-  <% end %>
+  <div class="flex items-center gap-2">
 
-  <!-- Título -->
-  <strong>
-    <%= item.title %>
-  </strong>
+    <%# Formulário com checkbox para marcar como concluído %>
+    <%= form_with(model: [list, item], method: :patch, data: { turbo: true }) do |form| %>
+      <%= form.check_box :done,
+            checked: item.done,
+            onchange: "this.form.requestSubmit()" %>
+    <% end %>
 
-  <!-- Status -->
-  <% if item.done %>
-    <span style="color: green;">(Concluído)</span>
-  <% else %>
-    <span style="color: red;">(Pendente)</span>
-  <% end %>
+    <%# Título do item, com linha de texto riscado se concluído %>
+    <span class="<%= 'line-through text-gray-400' if item.done %>">
+      <%= item.title %>
+    </span>
 
-  <!-- Botão excluir -->
-  <%= link_to "Excluir",
+  </div>
+
+  <%# Botão de exclusão do item %>
+  <%= link_to "🗑",
         list_item_path(list, item),
-        data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" } %>
+        data: { turbo_method: :delete, turbo_confirm: "Excluir?" },
+        class: "text-red-500 hover:scale-110 transition" %>
 
 </li>
