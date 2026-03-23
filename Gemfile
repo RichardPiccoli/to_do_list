@@ -4,7 +4,7 @@ source "https://rubygems.org"
 gem "rails", "~> 8.1.2"
 # The modern asset pipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
-# Use sqlite3 as the database for Active Record
+# Use sqlite3 as the database for Active Record (development/test)
 gem "sqlite3", ">= 2.1"
 # Use the Puma web server [https://github.com/puma/puma]
 gem "puma", ">= 5.0"
@@ -23,10 +23,10 @@ gem "jbuilder"
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "tzinfo-data", platforms: %i[ windows jruby ]
 
-# Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
-gem "solid_cache"
-gem "solid_queue"
-gem "solid_cable"
+# Removendo gems que não são necessárias para o deploy e que exigem bancos adicionais
+# gem "solid_cache"
+# gem "solid_queue"
+# gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
 gem "bootsnap", require: false
@@ -41,6 +41,11 @@ gem "thruster", require: false
 gem "image_processing", "~> 1.2"
 
 gem "tailwindcss-rails"
+
+# PostgreSQL para produção
+group :production do
+  gem "pg"
+end
 
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
